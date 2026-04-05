@@ -81,7 +81,8 @@ finance-dashboard-system/
 │   ├── 🎮 controllers/          # Request handlers
 │   │   ├── auth.controller.js
 │   │   ├── dashboard.controller.js
-│   │   └── record.controller.js
+│   │   ├── record.controller.js
+│   │   └── users.controller.js
 │   ├── 🗄️ db/                   # Database configuration
 │   │   └── db.js
 │   ├── 🚧 middlewares/          # Express middlewares
@@ -94,7 +95,8 @@ finance-dashboard-system/
 │   ├── 🛣️ routes/               # API routes
 │   │   ├── auth.route.js
 │   │   ├── dashboard.routes.js
-│   │   └── record.route.js
+│   │   ├── record.route.js
+│   │   └── users.route.js
 │   └── 📱 app.js                # Express app setup
 ├── 🔐 .env                      # Environment variables (local)
 ├── 📝 .gitignore
@@ -304,6 +306,60 @@ curl -X POST http://localhost:3000/api/auth/logout \
 ```json
 {
   "message": "Logout successful"
+}
+```
+
+</details>
+
+---
+
+### 👥 Users
+
+✅ **All user endpoints require authentication**
+
+#### 📋 `GET /api/users/get-users`
+
+Get all users (sensitive fields like password are excluded).
+
+**Allowed Roles**: 🔒 Admin only
+
+<details>
+<summary><b>Success Response (200)</b></summary>
+
+```json
+[
+  {
+    "_id": "60d0fe4f5311236168a109ca",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "role": "viewer",
+    "createdAt": "2024-05-20T12:00:00.000Z",
+    "updatedAt": "2024-05-20T12:00:00.000Z"
+  }
+]
+```
+
+</details>
+
+---
+
+#### 🔎 `GET /api/users/get-user/:id`
+
+Get one user by MongoDB ID.
+
+**Allowed Roles**: 🔒 Admin only
+
+<details>
+<summary><b>Success Response (200)</b></summary>
+
+```json
+{
+  "_id": "60d0fe4f5311236168a109ca",
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "role": "viewer",
+  "createdAt": "2024-05-20T12:00:00.000Z",
+  "updatedAt": "2024-05-20T12:00:00.000Z"
 }
 ```
 
