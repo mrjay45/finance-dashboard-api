@@ -17,10 +17,12 @@
 
 ## 📑 Quick Navigation
 
-| 🚀 [Quick Start](#-quick-start) | 📚 [API Docs](#-api-endpoints) | 🏗️ [Structure](#-project-structure) | 📋 [Features](#-features) |
-| ------------------------------- | ------------------------------ | ----------------------------------- | ------------------------- |
+| 🚀 [Quick Start](#quick-start) | 📚 [API Docs](#api-endpoints) | 🏗️ [Structure](#project-structure) | 📋 [Features](#features) |
+| ------------------------------ | ----------------------------- | ---------------------------------- | ------------------------ |
 
 ---
+
+<a id="features"></a>
 
 ## ✨ Features
 
@@ -70,6 +72,8 @@
 
 ---
 
+<a id="project-structure"></a>
+
 ## 🏗️ Project Structure
 
 <details open>
@@ -105,6 +109,8 @@ finance-dashboard-system/
 ```
 
 </details>
+
+<a id="quick-start"></a>
 
 ## Installation
 
@@ -188,6 +194,8 @@ Viewer users have **read-only** access to the following endpoints:
 - Perform admin operations
 
 ---
+
+<a id="api-endpoints"></a>
 
 ## API Endpoints
 
