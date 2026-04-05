@@ -18,6 +18,25 @@ async function authMiddleware(req, res, next) {
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
+      const token = req.cookies.token;
+
+      if (token) {
+        try {
+          const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+            ignoreExpiration: true,
+          });
+
+          if (decoded?.id) {
+            await userModel.findByIdAndUpdate(decoded.id, {
+              status: "inactive",
+            });
+          }
+        } catch (decodeError) {
+          // Ignore decoding errors and return token expired response.
+        }
+      }
+
+      res.clearCookie("token");
       return res.status(401).json({ message: "Token expired" });
     }
     if (error.name === "JsonWebTokenError") {

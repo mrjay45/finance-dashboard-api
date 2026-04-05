@@ -12,7 +12,7 @@ async function register(req, res) {
       .json({ error: "Name, email and password are required" });
   }
 
-  if (!["admin", "editor", "viewer"].includes(role)) {
+  if (!["admin", "analyst", "viewer"].includes(role)) {
     return res.status(400).json({ error: "Invalid role" });
   }
 
@@ -30,6 +30,7 @@ async function register(req, res) {
       email,
       password: hashedPassword,
       role,
+      status: "inactive",
     });
 
     return res.status(201).json({
@@ -69,6 +70,8 @@ async function login(req, res) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    await userModel.findByIdAndUpdate(user._id, { status: "active" });
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -89,6 +92,26 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
+  try {
+    const token = req.cookies.token;
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+          ignoreExpiration: true,
+        });
+
+        if (decoded?.id) {
+          await userModel.findByIdAndUpdate(decoded.id, { status: "inactive" });
+        }
+      } catch (error) {
+        // Always clear cookie and return success even if token is invalid.
+      }
+    }
+  } catch (error) {
+    console.error("Error logging out user:", error);
+  }
+
   res.clearCookie("token");
   res.status(200).json({ message: "Logout successful" });
 }

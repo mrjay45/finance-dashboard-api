@@ -124,9 +124,9 @@ The `.env` file is already in your root folder. Update it with your credentials:
 
 ```env
 # MongoDB connection string
-MONGO_URI=mongodb://localhost:27017/finance-db
+MONGOOSE_URL=mongodb://localhost:27017/finance-db
 # or use MongoDB Atlas:
-# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+# MONGOOSE_URL=mongodb+srv://username:password@cluster.mongodb.net/database
 
 # JWT Secret for token signing (use a strong, random string)
 JWT_SECRET=your_super_secret_jwt_key_here_12345678
